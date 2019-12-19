@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.spring.providertwo.dao.AdminUserMapper">
+    <resultMap id="adminmapper" type="com.spring.providertwo.entity.AdminUser">
+        <id column="ADMIN_ID" property="adminId"/>
+        <result column="ADMIN_NAME" property="adminName"/>
+        <result column="ADMIN_NO" property="adminNo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="login_pass" property="loginPass"/>
+        <result column="depart_no" property="departNo"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <sql id="insertAdmin">
+        ADMIN_ID,ADMIN_NAME,ADMIN_NO,create_time,login_pass,depart_no,status
+    </sql>
+    <insert id="insertAdminUser" parameterType="com.spring.providertwo.entity.AdminUser">
+        insert into admin_user
+        values(#{adminId},#{adminName},#{adminNo},#{createTime},#{loginPass},#{departNo},#{status})
+    </insert>
+
+    <select id="getAdminUser" parameterType="com.spring.providertwo.entity.AdminUser" resultMap="adminmapper">
+        select ADMIN_ID,ADMIN_NO,ADMIN_NAME,depart_no,status,create_time from admin_user where ADMIN_ID=#{adminId}
+    </select>
+
+    <update id="updateAdmin" parameterType="com.spring.providertwo.entity.AdminUser">
+        update admin_user SET ADMIN_NAME=#{adminName},depart_no=#{departNo} where ADMIN_ID=#{adminId}
+    </update>
+</mapper>
